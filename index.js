@@ -67,7 +67,12 @@ function pick(event, callback) {
   const rgba = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3] / 255})`;
 
   const mousePagePos = [event.clientX, event.clientY];
-  hoverPixel.style.transform = `translateX(${mousePagePos[0] - 5}px) translateY(${mousePagePos[1] - 5}px)`;
+  const snapPosOffset = [
+    x % 10,
+    y % 10
+  ];
+
+  hoverPixel.style.transform = `translateX(${mousePagePos[0] - snapPosOffset[0] + 1}px) translateY(${mousePagePos[1] - snapPosOffset[1] + 1}px)`;
   hoverPixel.classList = 'active';
 
   // make pixel active/inactive
@@ -78,7 +83,7 @@ function pick(event, callback) {
       data[i + 2] = colorsRGB[activeColor][2];
     }
 
-    ctx.putImageData(pixelGroup, x - 5, y - 5);
+    ctx.putImageData(pixelGroup, x - snapPosOffset[0], y - snapPosOffset[1]);
   }
 
   return rgba;
