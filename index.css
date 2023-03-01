@@ -74,6 +74,7 @@ button#reset, button#generate {
   height: 10px;
   background-color: white;
   opacity: 0;
+  pointer-events: none;
 }
 
 #hover-pixel.active {
@@ -86,7 +87,7 @@ button#reset, button#generate {
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   max-width: 640px;
 }
 
