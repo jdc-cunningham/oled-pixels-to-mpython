@@ -109,7 +109,7 @@ function pick(event, callback) {
     }
 
     selectedPositions.push(
-      [x - snapX, y - snapY],
+      [x - snapX, y - snapY, activeColor],
     );
     selectedPositionsCat.push(
       `${x - snapX}-${y - snapY}`,
@@ -142,8 +142,24 @@ canvas.addEventListener("click", (event) => pick(event, (e) => {
 const resetBtn = document.getElementById('reset');
 const generateBtn = document.getElementById('generate');
 const microPythonOutput = document.getElementById('micropython-output');
+const colorBtns = document.querySelectorAll('.color');
 
 resetBtn.addEventListener('click', reset);
+
+colorBtns.forEach(color => {
+  color.addEventListener('click', (e) => {
+    const pickedColor = e.target.id;
+    const colorWord = pickedColor.split('-')[1];
+
+    if (colorWord !== activeColor) {
+      document.getElementById(`color-${activeColor}`).classList = 'color';
+      hoverPixel.style.backgroundColor = colorWord;
+    }
+
+    color.classList = 'color active';
+    activeColor = colorWord;
+  });
+});
 
 // mpython generation algo
 // sort ascending
@@ -182,16 +198,16 @@ const generateMicroPython = () => {
     let thisY = coord[1];
 
     if (prevX === 0 && prevY === 0) { // first run
-      microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[activeColor]})`);
+      microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[coord[2]]})`);
     } else {
       if (thisY > prevY) { // new line
-        microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[activeColor]})`);
+        microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[coord[2]]})`);
         lineWidth = 10;
       } else {
         if (thisX - 1 === prevX) {
           lineWidth += 10;
         } else {
-          microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[activeColor]})`); // have to store and match color
+          microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[coord[2]]})`); // have to store and match color
           lineWidth = 10;
         }
       }
@@ -212,7 +228,6 @@ generateBtn.addEventListener('click', () => {
 });
 
 // improvements
-// missing first one
 // hold drag vs. clicking every pixel
 // color select
 // fill support
