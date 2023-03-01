@@ -12,6 +12,7 @@ const canvas = document.getElementById("pixels");
 const canvasWidth = canvas.offsetWidth;
 const canvasHeight = canvas.offsetHeight;
 const ctx = canvas.getContext("2d");
+const microPythonOutput = document.getElementById('micropython-output');
 
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
@@ -24,6 +25,7 @@ img.addEventListener("load", () => {
 const reset = () => {
   ctx.drawImage(img, 0, 0);
   img.style.display = "none";
+  microPythonOutput.innerText = "";
 }
 
 const colors = {
@@ -142,7 +144,6 @@ canvas.addEventListener("click", (event) => pick(event, (e) => {
 // event listeners
 const resetBtn = document.getElementById('reset');
 const generateBtn = document.getElementById('generate');
-const microPythonOutput = document.getElementById('micropython-output');
 const colorBtns = document.querySelectorAll('.color');
 
 resetBtn.addEventListener('click', reset);
