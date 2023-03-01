@@ -174,4 +174,5 @@ button#reset, button#generate {
   max-height: 684px;
   color: white;
   padding: 0.5rem;
+  overflow: auto;
 }
