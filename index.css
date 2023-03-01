@@ -14,8 +14,16 @@ h1 {
   font-size: 28px;
 }
 
+h2 {
+  font-size: 22px;
+}
+
 button {
+  margin-top: 1rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 #container {
@@ -38,13 +46,8 @@ button {
   width: 20%;
 }
 
-button#reset {
-  margin-top: 1rem;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-}
-
 #center-panel {
+  flex-direction: column;
   width: 50%;
 }
 
@@ -60,6 +63,58 @@ button#reset {
   border: 1px solid black;
 }
 
+.colors {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 0.5rem;
+}
+
+.color {
+  opacity: 0.5;
+}
+
+.color:hover {
+  opacity: 1;
+}
+
+#color-white {
+  background-color: white;
+}
+
+#color-yellow {
+  background-color: yellow;
+}
+
+#color-cyan {
+  background-color: cyan;
+}
+
+#color-green {
+  background-color: green;
+  color: white;
+}
+
+#color-pink {
+  background-color: pink;
+}
+
+#color-red {
+  background-color: red;
+}
+
+#color-blue {
+  background-color: blue;
+  color: white;
+}
+
+#color-black {
+  background-color: black;
+  color: white;
+}
+
 .pixel {
   width: 5px;
   height: 5px;
@@ -73,4 +128,20 @@ button#reset {
 
 #left-panel, #right-panel {
   width: 30%;
+}
+
+#left-panel p {
+  margin-top: 0.5rem;
+}
+
+#right-panel {
+  flex-direction: column;
+}
+
+#micropython-output {
+  height: 80%;
+  width: 80%;
+  background-color: #505050;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

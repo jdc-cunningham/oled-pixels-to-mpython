@@ -12,13 +12,28 @@
     <div id="container">
       <div id="left-panel" class="panel">
         <h1>OLED PIXELS</h1>
+        <p>Min pixel size: 10</p>
         <button type="button" id="reset">Reset</button>
       </div>
       <div id="center-panel" class="panel">
-        <div id="pixels"></div>
+        <div class="colors">
+          <button class="color" type="button" id="color-white">White</button>
+          <button class="color" type="button" id="color-yellow">Yellow</button>
+          <button class="color" type="button" id="color-cyan">Cyan</button>
+          <button class="color" type="button" id="color-green">Green</button>
+        </div>
+        <canvas id="pixels"></canvas>
+        <div class="colors">
+          <button class="color" type="button" id="color-pink">Pink</button>
+          <button class="color" type="button" id="color-red">Red</button>
+          <button class="color" type="button" id="color-blue">Blue</button>
+          <button class="color" type="button" id="color-black">Black</button>
+        </div>
       </div>
       <div id="right-panel" class="panel">
-
+        <h2>Micropython output</h2>
+        <div id="micropython-output"></div>
+        <button type="button">Generate</button>
       </div>
     </div>
     <script src="./index.js"></script>
