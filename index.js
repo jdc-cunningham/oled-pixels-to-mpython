@@ -175,24 +175,24 @@ const microPythonCmds = [
 const generateMicroPython = () => {
   let prevX = 0;
   let prevY = 0;
-  let lineWidth = 1; // forms horizontal line
+  let lineWidth = 10; // forms horizontal line
 
   selectedPositions.forEach(coord => {
     let thisX = coord[0];
     let thisY = coord[1];
 
     if (prevX === 0 && prevY === 0) { // first run
-      lineWidth += 1;
+      microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[activeColor]})`);
     } else {
       if (thisY > prevY) { // new line
-        lineWidth = 1;
         microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[activeColor]})`);
+        lineWidth = 10;
       } else {
         if (thisX - 1 === prevX) {
-          lineWidth += 1;
+          lineWidth += 10;
         } else {
-          lineWidth = 1;
           microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[activeColor]})`); // have to store and match color
+          lineWidth = 10;
         }
       }
     }
@@ -210,3 +210,9 @@ generateBtn.addEventListener('click', () => {
     microPythonOutput.innerText += cmd + '\n';
   });
 });
+
+// improvements
+// missing first one
+// hold drag vs. clicking every pixel
+// color select
+// fill support
