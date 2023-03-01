@@ -54,12 +54,15 @@ button#reset {
   justify-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
-  height: auto;
+  max-width: 640px;
+  height: calc((400/640) * 100vh);
+  max-height: 400px;
+  border: 1px solid black;
 }
 
 .pixel {
-  width: calc(1/640)px;
-  height: auto;
+  width: 5px;
+  height: 5px;
 }
 
 .pixel::before {
