@@ -171,4 +171,5 @@ button#reset, button#generate {
   background-color: #505050;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  max-height: 684px;
 }
