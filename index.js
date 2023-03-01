@@ -205,7 +205,7 @@ const generateMicroPython = () => {
         microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[coord[2]]})`);
         lineWidth = 10;
       } else {
-        if (thisX - 1 === prevX) {
+        if (thisX - 9 === prevX) {
           lineWidth += 10;
         } else {
           microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[coord[2]]})`); // have to store and match color
