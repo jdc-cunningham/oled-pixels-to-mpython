@@ -233,3 +233,4 @@ generateBtn.addEventListener('click', () => {
 // hold drag vs. clicking every pixel
 // fill support
 // custom color input
+// make algo use hline and vline
