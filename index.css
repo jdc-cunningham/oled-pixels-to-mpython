@@ -19,11 +19,14 @@ h2 {
 }
 
 button {
-  margin-top: 1rem;
   font-weight: bold;
   padding: 0.5rem 1rem;
   cursor: pointer;
   border-radius: 8px;
+}
+
+button#reset, button#generate {
+  margin-top: 1rem;
 }
 
 #container {
@@ -63,6 +66,16 @@ button {
   border: 1px solid black;
 }
 
+#hover-pixel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background-color: blue;
+  /* display: none; */
+}
+
 .colors {
   display: flex;
   width: 100%;
@@ -72,11 +85,19 @@ button {
   padding: 0.5rem;
 }
 
+.colors.top {
+
+}
+
 .color {
   opacity: 0.5;
 }
 
 .color:hover {
+  opacity: 1;
+}
+
+.color.active {
   opacity: 1;
 }
 

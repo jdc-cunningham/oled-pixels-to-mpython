@@ -17,12 +17,13 @@
       </div>
       <div id="center-panel" class="panel">
         <div class="colors">
-          <button class="color" type="button" id="color-white">White</button>
+          <button class="color active" type="button" id="color-white">White</button>
           <button class="color" type="button" id="color-yellow">Yellow</button>
           <button class="color" type="button" id="color-cyan">Cyan</button>
           <button class="color" type="button" id="color-green">Green</button>
         </div>
         <canvas id="pixels"></canvas>
+        <div id="hover-pixel"></div>
         <div class="colors">
           <button class="color" type="button" id="color-pink">Pink</button>
           <button class="color" type="button" id="color-red">Red</button>
@@ -33,7 +34,7 @@
       <div id="right-panel" class="panel">
         <h2>Micropython output</h2>
         <div id="micropython-output"></div>
-        <button type="button">Generate</button>
+        <button id="generate" type="button">Generate</button>
       </div>
     </div>
     <script src="./index.js"></script>

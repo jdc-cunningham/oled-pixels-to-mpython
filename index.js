@@ -17,6 +17,7 @@ img.addEventListener("load", () => {
 });
 
 let pixelSize = 10; // 10 min based on monocle draw library
+const hoverPixel = document.getElementById('hover-pixel');
 
 function pick(event, callback) {
   const bounding = canvas.getBoundingClientRect();
@@ -26,6 +27,10 @@ function pick(event, callback) {
   const data = pixel.data;
 
   const rgba = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3] / 255})`;
+
+  const mousePagePos = [event.clientX, event.clientY];
+  hoverPixel.style.transform = `translateX(${mousePagePos[0] - 5}px) translateY(${mousePagePos[1] - 5}px)`;
+
   // destination.style.background = rgba;
   // destination.textContent = rgba;
   callback(event.offsetX, event.offsetY);
