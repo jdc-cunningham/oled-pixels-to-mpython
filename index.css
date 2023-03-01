@@ -72,8 +72,12 @@ button#reset, button#generate {
   left: 0;
   width: 10px;
   height: 10px;
-  background-color: blue;
-  /* display: none; */
+  background-color: white;
+  opacity: 0;
+}
+
+#hover-pixel.active {
+  opacity: 1;
 }
 
 .colors {
@@ -83,6 +87,7 @@ button#reset, button#generate {
   justify-content: space-between;
   flex-direction: row;
   padding: 0.5rem;
+  max-width: 640px;
 }
 
 .colors.top {

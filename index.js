@@ -30,6 +30,7 @@ function pick(event, callback) {
 
   const mousePagePos = [event.clientX, event.clientY];
   hoverPixel.style.transform = `translateX(${mousePagePos[0] - 5}px) translateY(${mousePagePos[1] - 5}px)`;
+  hoverPixel.classList = 'active';
 
   // destination.style.background = rgba;
   // destination.textContent = rgba;
@@ -41,6 +42,16 @@ function pick(event, callback) {
 canvas.addEventListener("mousemove", (event) => pick(event, (e) => {
   console.log(e)
 }));
+
+let mouseoutTimer;
+
+canvas.addEventListener("mouseout", (event) => {
+  clearTimeout(mouseoutTimer);
+
+  mouseoutTimer = setTimeout(() => {
+    hoverPixel.classList = '';
+  }, 250); // fire after pick
+});
 
 canvas.addEventListener("click", (event) => pick(event, (e) => {
   console.log(e)
