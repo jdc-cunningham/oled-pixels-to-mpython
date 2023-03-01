@@ -98,6 +98,13 @@ function pick(event, callback) {
         data[i + 1] = colorsRGB[activeColor][1];
         data[i + 2] = colorsRGB[activeColor][2];
       }
+
+      selectedPositions.push(
+        [x - snapX, y - snapY, activeColor],
+      );
+      selectedPositionsCat.push(
+        `${x - snapX}-${y - snapY}`,
+      );
     } else {
       for (let i = 0; i < data.length; i += 4) {
         data[i + 0] = baseColor[0];
@@ -105,15 +112,9 @@ function pick(event, callback) {
         data[i + 2] = baseColor[2];
       }
 
-      selectedPositions.splice(coord, 1);
+      selectedPositionsCat.splice(coord, 1);
     }
 
-    selectedPositions.push(
-      [x - snapX, y - snapY, activeColor],
-    );
-    selectedPositionsCat.push(
-      `${x - snapX}-${y - snapY}`,
-    );
     ctx.putImageData(pixelGroup, x - snapX, y - snapY);
   }
 
@@ -229,5 +230,5 @@ generateBtn.addEventListener('click', () => {
 
 // improvements
 // hold drag vs. clicking every pixel
-// color select
 // fill support
+// custom color input
