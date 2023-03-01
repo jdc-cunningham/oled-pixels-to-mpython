@@ -172,4 +172,6 @@ button#reset, button#generate {
   margin-top: 1rem;
   margin-bottom: 1rem;
   max-height: 684px;
+  color: white;
+  padding: 0.5rem;
 }

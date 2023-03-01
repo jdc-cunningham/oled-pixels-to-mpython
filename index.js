@@ -86,12 +86,12 @@ function pick(event, callback) {
   hoverPixel.style.transform = `translateX(${mousePagePos[0] - snapX + 1}px) translateY(${mousePagePos[1] - snapY + 1}px)`;
   hoverPixel.classList = 'active';
 
-  console.log(selectedPositionsCat);
-
   // make pixel active/inactive
   if (event.type === "click") {
+    const coord = selectedPositionsCat.indexOf(`${x - snapX}-${y - snapY}`);
+
     if (
-      selectedPositionsCat.indexOf(`${x - snapX}-${y - snapY}`) === -1
+      coord === -1
     ) {
       for (let i = 0; i < data.length; i += 4) {
         data[i + 0] = colorsRGB[activeColor][0];
@@ -104,6 +104,8 @@ function pick(event, callback) {
         data[i + 1] = baseColor[1];
         data[i + 2] = baseColor[2];
       }
+
+      selectedPositions.splice(coord, 1);
     }
 
     selectedPositions.push(
@@ -139,9 +141,72 @@ canvas.addEventListener("click", (event) => pick(event, (e) => {
 // event listeners
 const resetBtn = document.getElementById('reset');
 const generateBtn = document.getElementById('generate');
+const microPythonOutput = document.getElementById('micropython-output');
 
 resetBtn.addEventListener('click', reset);
 
+// mpython generation algo
+// sort ascending
+// box in by row
+//
+// if same color, same line
+// break (base color) or new color, new line
+
+// https://stackoverflow.com/questions/16096872/how-to-sort-2-dimensional-array-by-column-value
+// omg "if you want to sort by second col" convenient
+
+const sortCoordinates = (coords) => {
+  coords.sort(compareSecondColumn);
+  
+  function compareSecondColumn(a, b) {
+    if (a[1] === b[1]) {
+        return 0;
+    }
+    else {
+        return (a[1] < b[1]) ? -1 : 1;
+    }
+  }
+}
+
+const microPythonCmds = [
+  'import display'
+];
+
+const generateMicroPython = () => {
+  let prevX = 0;
+  let prevY = 0;
+  let lineWidth = 1; // forms horizontal line
+
+  selectedPositions.forEach(coord => {
+    let thisX = coord[0];
+    let thisY = coord[1];
+
+    if (prevX === 0 && prevY === 0) { // first run
+      lineWidth += 1;
+    } else {
+      if (thisY > prevY) { // new line
+        lineWidth = 1;
+        microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[activeColor]})`);
+      } else {
+        if (thisX - 1 === prevX) {
+          lineWidth += 1;
+        } else {
+          lineWidth = 1;
+          microPythonCmds.push(`display.hline(${thisX - lineWidth}, ${thisY}, ${lineWidth}, ${colorsHex[activeColor]})`); // have to store and match color
+        }
+      }
+    }
+    
+    prevX = thisX;
+    prevY = thisY;
+  });
+}
+
 generateBtn.addEventListener('click', () => {
-  console.log(selectedPositions);
+  sortCoordinates(selectedPositions);
+  generateMicroPython();
+  microPythonCmds.push('display.show()');
+  microPythonCmds.forEach(cmd => {
+    microPythonOutput.innerText += cmd + '\n';
+  });
 });
