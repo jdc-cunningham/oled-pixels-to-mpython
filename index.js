@@ -68,14 +68,12 @@ let activeColor = colors.white;
 const hoverPixel = document.getElementById('hover-pixel');
 const selectedPositions = [];
 const selectedPositionsCat = []; // concatenate for search
+const imgPixels = {};
 
 function pick(event, callback) {
   const bounding = canvas.getBoundingClientRect();
   const x = event.clientX - bounding.left;
   const y = event.clientY - bounding.top;
-  const pixelGroup = ctx.getImageData(0, 0, 10, 10);
-  const data = pixelGroup.data;
-  const rgba = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3] / 255})`;
 
   const mousePagePos = [event.clientX, event.clientY];
   const snapPosOffset = [
@@ -85,16 +83,25 @@ function pick(event, callback) {
   const snapX = snapPosOffset[0];
   const snapY = snapPosOffset[1];
 
+  const pixelGroup = ctx.getImageData(x - snapX, y - snapY, 10, 10);
+  const data = pixelGroup.data;
+  const rgba = [data[0], data[1], data[2], data[3] / 255];
+
   hoverPixel.style.transform = `translateX(${mousePagePos[0] - snapX + 1}px) translateY(${mousePagePos[1] - snapY + 1}px)`;
   hoverPixel.classList = 'active';
 
   // make pixel active/inactive
   if (event.type === "click") {
-    const coord = selectedPositionsCat.indexOf(`${x - snapX}-${y - snapY}`);
+    const coordStr = `${x - snapX}-${y - snapY}`;
+    const coord = selectedPositionsCat.indexOf(coordStr);
+
+
 
     if (
       coord === -1
     ) {
+      imgPixels[coordStr] = rgba;
+
       for (let i = 0; i < data.length; i += 4) {
         data[i + 0] = colorsRGB[activeColor][0];
         data[i + 1] = colorsRGB[activeColor][1];
@@ -105,19 +112,19 @@ function pick(event, callback) {
         [x - snapX, y - snapY, activeColor],
       );
       selectedPositionsCat.push(
-        `${x - snapX}-${y - snapY}`,
+        coordStr,
       );
+      ctx.putImageData(pixelGroup, x - snapX, y - snapY);
     } else {
       for (let i = 0; i < data.length; i += 4) {
-        data[i + 0] = baseColor[0];
-        data[i + 1] = baseColor[1];
-        data[i + 2] = baseColor[2];
+        data[i + 0] = imgPixels[coordStr][0];
+        data[i + 1] = imgPixels[coordStr][1];
+        data[i + 2] = imgPixels[coordStr][2];
       }
 
       selectedPositionsCat.splice(coord, 1);
+      ctx.putImageData(pixelGroup, x - snapX, y - snapY);
     }
-
-    ctx.putImageData(pixelGroup, x - snapX, y - snapY);
   }
 
   return rgba;
