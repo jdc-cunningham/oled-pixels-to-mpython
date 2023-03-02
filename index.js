@@ -5,8 +5,8 @@ const isLocal = window.location.href.indexOf('github.io') === -1;
 const img = new Image();
 img.crossOrigin = "anonymous";
 img.src = isLocal
-  ? "https://jdc-cunningham.github.io/oled-pixels-to-mpython/pexels_living-room.jpg"
-  : "./pexels_living-room.jpg";
+  ? "https://jdc-cunningham.github.io/oled-pixels-to-mpython/pexels_living-room.jpeg"
+  : "./pexels_living-room.jpeg";
 
 const canvas = document.getElementById("pixels");
 const canvasWidth = canvas.offsetWidth;
